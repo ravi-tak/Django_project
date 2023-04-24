@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block {{title}} %}
+<header>
+  <h1 class="text-center fw-bold mt-5 mb-3">Create Blog</h1>
+</header>
+
+<div class="container">
+    <form method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="title" class="form-label">Title</label>
+          <input type="text" class="form-control" id="title" name="title">
+        </div>
+        <div class="mb-3">
+          <label for="des" class="form-label">Des</label>
+          <input type="text" class="form-control" id="des" name="des">
+        </div>
+        <div class="mb-3">
+          <label for="content" class="form-label">Content</label>
+          <input type="text" class="form-control" id="content" name="content">
+        </div>
+        <div class="mb-3">
+          <label for="user" class="form-label">User</label>
+          <input type="text" class="form-control" id="user" name="user">
+        </div>
+    
+        <div class="mb-3">
+          <label for="tag" class="form-label">Tag</label>
+          <input type="text" class="form-control" id="tag" name="tag">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+{% endblock %}

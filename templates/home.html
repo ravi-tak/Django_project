@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block {{title}} %}
+<header>
+    <h1 class="text-center fw-bold mt-5 mb-4">Blog</h1>
+</header>
+
+<div class="container d-flex">
+
+    {% for data in resBlog %}
+    <div class="m-3 border border-5 rounded-2 p-3">
+        <h2 class="text-center">Blog Title : {{data.title}}</h2>
+        <p>Date : {{data.date_blog}}</p>
+        <p>Author : {{data.author}}</p>
+        <p>Description : {{data.des}}</p>
+        <p>Content : {{data.content}}</p>
+        <p>All tags :
+        {% for tag in data.tags %}
+            <span>{{tag.tag}}</span>
+        {% endfor %}
+        </p>
+    </div>
+    {% endfor %}
+
+</div>
+
+{% endblock %}

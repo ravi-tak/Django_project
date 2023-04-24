@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{title}}</title>
+    <style>
+        .heading {
+            text-align: center;
+            padding: 10px;
+            color: orange;
+            background-color: aliceblue;
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="heading">{{body_data}}</h1>
+
+    {% for item in list %}
+    <div>{{item}}</div>
+    {% endfor %}
+
+    <br />
+
+    <table border="1" cellpadding="10">
+        <tr>
+            <th>Name</th>
+            <th>Phone No.</th>
+        </tr>
+
+        {% for td in student_details %}
+        <tr>
+            <td>{{td.name}}</td>
+            <td>{{td.phone}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <br />
+
+    {% if numbers|length > 0 %} {% for num in numbers %} {% if num > 20 %}
+    <div>{{num}}</div>
+    {% endif %} {% endfor %} {% else %}
+    <div>No Data Found</div>
+    {% endif %}
+
+    <br />
+
+    <!-- {% for data in serviceData %}
+    <div>{{data.title}}</div>
+    <div>{{data.des}}</div>
+    {% endfor %} -->
+
+    <br />
+
+    {% for data in res %}
+    <div>{{data.title}}</div>
+    <div>{{data.des}}</div>
+    <div>{{data.content}}</div>
+    <div>{{data.data}}</div>
+    {% endfor %}
+</body>
+
+</html>

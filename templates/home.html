@@ -1,27 +1,28 @@
 {% extends 'base.html' %}
 
-{% block {{title}} %}
-<header>
-    <h1 class="text-center fw-bold mt-5 mb-4">Blog</h1>
-</header>
+{% block content %}
 
-<div class="container d-flex">
-
-    {% for data in resBlog %}
-    <div class="m-3 border border-5 rounded-2 p-3">
-        <h2 class="text-center">Blog Title : {{data.title}}</h2>
-        <p>Date : {{data.date_blog}}</p>
-        <p>Author : {{data.author}}</p>
-        <p>Description : {{data.des}}</p>
-        <p>Content : {{data.content}}</p>
-        <p>All tags :
-        {% for tag in data.tags %}
-            <span>{{tag.tag}}</span>
-        {% endfor %}
-        </p>
-    </div>
+    {% for data in resBlog reversed %}
+    <!-- article.html -->
+    <article class="media content-section">
+      <div class="media d-flex">
+        <img class="rounded-circle account-img" src="{{ data.image }}">
+        <div class="media-body">
+          <div class="article-metadata">
+            <a class="mr-2" href="#">Author : {{ data.author }}</a>
+            <small class="text-muted">Date : {{ data.date_blog }}</small>
+          </div>
+          <h2><a class="article-title" href="#">Blog Title : {{ data.title }}</a></h2>
+          <p class="article-content">Description : {{ data.des }}</p>
+          <p class="article-content">Content : {{ data.content }}</p>
+          <p>All tags :
+            {% for tag in data.tags %}
+                <span>{{ tag.tag }}</span>
+            {% endfor %}
+          </p>
+        </div>
+      </div>
+      </article>
     {% endfor %}
-
-</div>
 
 {% endblock %}

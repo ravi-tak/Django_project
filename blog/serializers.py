@@ -17,10 +17,11 @@ class TagSerializers(serializers.ModelSerializer):
 class BlogSerializers(serializers.ModelSerializer):
     author = serializers.ReadOnlyField(source='author.username')
     tags = TagSerializers(many=True, read_only=True)
+    date_blog = serializers.DateTimeField(format="%B %d, %Y")
 
     class Meta:
         model = Blog
-        fields = ['title', 'des', 'content', 'date_blog', 'author', 'tags']
+        fields = ['title', 'des', 'content', 'date_blog', 'image', 'author', 'tags']
 
 
 

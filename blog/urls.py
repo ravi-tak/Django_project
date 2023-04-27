@@ -7,5 +7,5 @@ urlpatterns =[
     path('api-user/', UserViewSet),
     path('api-blog/', BlogViewSet),
     path('api-tag/', TagViewSet),
-    path('', views.display),
+    path('', views.home, name='home'),
 ]

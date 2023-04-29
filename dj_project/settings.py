@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'crispy_forms',
     'blog',
     'users',
-    'services',
 ]
 
 MIDDLEWARE = [
@@ -142,3 +141,5 @@ STATICFILES_DIRS = [
 ]
 
 LOGIN_REDIRECT_URL = 'home'
+# setting url to see login page when try to access profile without login, by default it was 'accounts/login'
+LOGIN_URL = 'login'

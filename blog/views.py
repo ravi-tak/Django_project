@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponseRedirect
 from blog.models import Blog, Tag
 from django.contrib.auth.models import User
 from blog.serializers import BlogSerializers, TagSerializers, UserSerializers
@@ -20,7 +19,7 @@ def post(request):
     else:
         form = BlogForm()
         
-    return render(request, 'form.html', {'form': form})
+    return render(request, 'post_form.html', {'form': form})
 
 # JSON API
 @api_view(['GET'])

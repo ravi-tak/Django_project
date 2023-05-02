@@ -10,7 +10,7 @@ class Blog(models.Model):
     content = models.TextField()
     date_blog = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blogs')
-    image = models.ImageField(default='default.png', upload_to='profile_pics')
+    image = models.ImageField(null=True, blank=True, upload_to='article_pics')
 
     def __str__(self):
         return self.title

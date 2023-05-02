@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from blog.models import Blog, Tag
 from django.contrib.auth.models import User
+from users.models import Profile
 
 # create serializers here
 
@@ -14,14 +15,22 @@ class TagSerializers(serializers.ModelSerializer):
         model = Tag
         fields = ['id', 'tag']
 
+class ProfileSerializers(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField(source='user.username')
+    
+    class Meta:
+        model = Profile
+        fields = ['id', 'user', 'image']
+
 class BlogSerializers(serializers.ModelSerializer):
     author = serializers.ReadOnlyField(source='author.username')
     tags = TagSerializers(many=True, read_only=True)
     date_blog = serializers.DateTimeField(format="%B %d, %Y")
+    author_profile = ProfileSerializers(source='author.profile', read_only=True)
 
     class Meta:
         model = Blog
-        fields = ['title', 'des', 'content', 'date_blog', 'image', 'author', 'tags']
+        fields = ['id', 'title', 'des', 'content', 'date_blog', 'image', 'author', 'tags', 'author_profile']
 
 
 

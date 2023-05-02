@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>Post By {{ username }}</h1>
+
+{% if blogs %}
+
+  {% for data in blogs %}
+    <!-- article.html -->
+    <article class="media content-section">
+      <div class="media d-flex">
+          <img class="rounded-circle account-img" src="{{ data.author_profile.image }}">
+          <div class="media-body">
+              <div class="article-metadata">
+                  <saml class="mr-2">Author : {{ data.author }}</saml>
+                  <small class="text-muted">Date : {{ data.date_blog }}</small>
+              </div>
+              <h2><a class="article-title" href="http://127.0.0.1:8000/blog/{{ data.id }}">Blog Title : {{ data.title }}</a></h2>
+              <p class="article-content">Description : {{ data.des }}</p>
+              <p>All tags :
+                {% for tag in data.tags %}
+                  <span>{{ tag.tag }}</span>
+                {% endfor %}
+              </p>
+          </div>
+      </div>
+    </article>
+  {% endfor %}
+
+  <!-- page.obj is blogs -->
+  {% if blogs.has_previous %}
+    <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+    <a class="btn btn-outline-info mb-4" href="?page={{ blogs.previous_page_number }}">Previous</a>
+  {% endif %}
+
+  {% for num in blogs.paginator.page_range %}
+    {% if blogs.number == num %}
+      <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+    {% elif num > blogs.number|add:'-3' and num < blogs.number|add:'3' %}
+      <a class="btn btn-outline-info mb-4" href="?page={{ num }}">{{ num }}</a>
+    {% endif %}
+  {% endfor %}
+
+  {% if blogs.has_next %}
+    <a class="btn btn-outline-info mb-4" href="?page={{ blogs.next_page_number }}">Next</a>
+    <a class="btn btn-outline-info mb-4" href="?page={{ blogs.paginator.num_pages }}">Last</a>
+  {% endif %}
+
+
+{% endif %}
+
+{% endblock %}

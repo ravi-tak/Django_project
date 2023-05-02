@@ -4,21 +4,16 @@ from django.contrib.auth.models import User
 
 class BlogForm(forms.ModelForm):
     tags = forms.CharField(max_length=100)
-    author_name = forms.CharField(max_length=100)
     
     class Meta:
         model = Blog
-        fields = ['author_name', 'title', 'des', 'content', 'tags', 'image']
+        fields = ['title', 'des', 'content', 'tags', 'image']
 
-    def save(self, commit=True):
-        # Check if author exists in User model
-        author_name = self.cleaned_data.get('author_name')
-        author, created = User.objects.get_or_create(username=author_name)
-
+    def save(self, user=None, commit=True):
         # Set author of the blog
         blog = super().save(commit=False)
-        blog.author = author
-        # also done is this way blog = Blog(title='title', des='des', content='content', author=author)
+        blog.author = user
+        # also done is this way blog = Blog(title='title', des='des', content='content', author=user)
 
         if commit:
             blog.save()

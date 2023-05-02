@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <article class="media content-section">
+        <div class="media d-flex">
+            <!-- error due to profile image url was not set -->
+        <img class="rounded-circle account-img" src="{{ data.author_profile.image }}">
+        <div class="media-body">
+            <div class="article-metadata">
+                <a class="mr-2" href="{% url 'user-blogs' data.author %}">Author : {{ data.author }}</a>
+                <small class="text-muted">Date : {{ data.date_blog }}</small>
+            <!-- we have to pass blog.author as author -->
+            {% if user.is_authenticated and author == user %}
+                <div>
+                    <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'blog-update' data.id %}">Update</a>
+                    <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'blog-delete' data.id %}">Delete</a>
+                </div>
+            {% endif %}
+            </div>
+            <h2 class="article-title">Blog Title : {{ data.title }}</h2>
+            <p class="article-content">Description : {{ data.des }}</p>
+            <p class="article-content">Content : {{ data.content }}</p>
+            {% if data.image != null %}
+                <p><img class="content-img" src="{{ data.image }}"></p>
+            {% endif %}
+            <p>All tags :
+            {% for tag in data.tags %}
+                <span>{{ tag.tag }}</span>
+            {% endfor %}
+            </p>
+        </div>
+        </div>
+    </article>
+
+{% endblock %}

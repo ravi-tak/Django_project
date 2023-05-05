@@ -143,3 +143,5 @@ STATICFILES_DIRS = [
 LOGIN_REDIRECT_URL = 'home'
 # setting url to see login page when try to access profile without login, by default it was 'accounts/login'
 LOGIN_URL = 'login'
+
+AUTH_USER_MODEL = 'blog.User'

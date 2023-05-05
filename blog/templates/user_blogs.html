@@ -2,12 +2,12 @@
 
 {% block content %}
 
-<h1>Post By {{ username }}</h1>
+<h1>All Blogs By {{ username }}</h1>
 
 {% if blogs %}
 
   {% for data in blogs %}
-    <!-- article.html -->
+    <!-- article -->
     <article class="media content-section">
       <div class="media d-flex">
           <img class="rounded-circle account-img" src="{{ data.author_profile.image }}">

@@ -7,8 +7,9 @@ from blog.serializers import BlogSerializers
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.views.generic import (UpdateView, DeleteView)
-from django.shortcuts import render, redirect
-from django.urls import reverse_lazy
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponseRedirect
+from django.urls import reverse_lazy, reverse
 import requests
 from django.core.paginator import Paginator, PageNotAnInteger
 
@@ -119,22 +120,23 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
             return False
         
 
-class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
-    model = Blog
-    # <model>_confirm_form.html expected while using DeleteView
-    template_name = 'blog_confirm_delete.html'
+@login_required
+def blog_delete(request, pk):
+    blog = get_object_or_404(Blog, pk=pk)
 
-    def get_success_url(self):
-        messages.success(self.request, f'Post Deleted!')
-        return reverse_lazy('home')
-    
-    def test_func(self):
-        blog = self.get_object()
-        if self.request.user == blog.author:
-            return True
-        else:
-            return False
-    
+    # Check if the user is the author of the blog
+    if request.user != blog.author:
+        return render(request, '403.html', status=403)
+
+    if request.method == 'POST':
+        # Soft delete the blog
+        blog.soft_delete()
+        messages.success(request, f'Post Deleted!')
+        return HttpResponseRedirect(reverse('home'))
+
+    return render(request, 'blog_confirm_delete.html', {'object': blog})
+
+        
     
 
 
@@ -152,6 +154,34 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
 
 # for me
+
+# Its calling hard delete instead of soft delete even after modifying delete func
+# class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+#     model = Blog
+#     # <model>_confirm_form.html expected while using DeleteView
+#     template_name = 'blog_confirm_delete.html'
+
+#     def get_queryset(self):
+#         return Blog.objects.filter(pk=self.kwargs['pk'])
+
+#     def get_success_url(self):
+#         messages.success(self.request, f'Post Deleted!')
+#         return reverse_lazy('home')
+    
+#     def test_func(self):
+#         blog = self.get_object()
+#         if self.request.user == blog.author:
+#             return True
+#         else:
+#             return False
+        
+#     def delete(self, request, *args, **kwargs):
+#         self.object = self.get_object()
+#         success_url = self.get_success_url()
+#         self.object.soft_delete()
+#         messages.success(request, f'Post Deleted!')
+#         return HttpResponseRedirect(success_url)
+
 
 # Post API
 # def post(request):

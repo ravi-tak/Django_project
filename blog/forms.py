@@ -1,6 +1,5 @@
 from django import forms
 from blog.models import Blog, Tag
-from django.contrib.auth.models import User
 
 class BlogForm(forms.ModelForm):
     tags = forms.CharField(max_length=100)

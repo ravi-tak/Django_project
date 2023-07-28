@@ -90,6 +90,7 @@ def blog_details(request, pk):
     except Blog.DoesNotExist:
         return render(request, 'blog_details.html')
 
+    # serializing perticular blog
     serializer = BlogSerializers(blog)
     return render(request, 'blog_details.html', {'data': serializer.data, 'author': blog.author})
 
@@ -98,7 +99,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Blog
     fields = ['title', 'des', 'content', 'image']
     # We need templates folder inside the blog app to work by default
-    # <model>_form.html expected while using UpdateView
+    # <model>_form.html expected while using UpdateView that uses same post creat temp
     template_name = 'blog_form.html'
 
     # providing author to the form object
@@ -118,6 +119,16 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
             return True
         else:
             return False
+        
+    # To pass request object in temp to use condition for changing temp
+    def get_context_data(self, **kwargs):
+        # Call the parent class's get_context_data() method to get the existing context data
+        context = super().get_context_data(**kwargs)
+
+        # Add the request object to the context
+        context['request'] = self.request
+
+        return context
         
 
 @login_required

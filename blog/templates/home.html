@@ -11,9 +11,11 @@
           <img class="rounded-circle account-img" src="{{ data.author_profile.image }}">
           <div class="media-body">
               <div class="article-metadata">
+                  <!-- username in comming from here in user-blog url -->
                   <a class="mr-2" href="{% url 'user-blogs' data.author %}">Author : {{ data.author }}</a>
                   <small class="text-muted">Date : {{ data.date_blog }}</small>
               </div>
+              <!-- same here for id/pk -->
               <h2><a class="article-title" href="http://127.0.0.1:8000/blog/{{ data.id }}">Blog Title : {{ data.title }}</a></h2>
               <p class="article-content">Description : {{ data.des }}</p>
               <p>All tags :

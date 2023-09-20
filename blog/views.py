@@ -88,7 +88,7 @@ def blog_details(request, pk):
     try:
         blog = Blog.objects.get(id=pk)
     except Blog.DoesNotExist:
-        return render(request, 'blog_details.html')
+        return render(request, 'not-found.html')
 
     # serializing perticular blog
     serializer = BlogSerializers(blog)

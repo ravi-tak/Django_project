@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-75&@y=tl97-8y31r892nru3alan#8p5jfwto69nh(^a%zmjjf=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.vercel.app', '.now.sh']
 
 
 # Application definition
@@ -139,6 +139,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_DIRS = [
     BASE_DIR, "static"
 ]
+STATIC_ROOT = os.path.join(BASE_DIR, 'static', 'staticfiles_build')
 
 LOGIN_REDIRECT_URL = 'home'
 # setting url to see login page when try to access profile without login, by default it was 'accounts/login'

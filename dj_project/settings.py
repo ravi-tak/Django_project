@@ -137,9 +137,9 @@ MEDIA_URL = '/media/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATICFILES_DIRS = [
-    BASE_DIR, "static"
+    os.path.join(BASE_DIR, 'static')
 ]
-STATIC_ROOT = os.path.join(BASE_DIR, 'static', 'staticfiles_build')
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles_build", 'static')
 
 LOGIN_REDIRECT_URL = 'home'
 # setting url to see login page when try to access profile without login, by default it was 'accounts/login'

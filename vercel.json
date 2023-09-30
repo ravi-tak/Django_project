@@ -1,4 +1,5 @@
 {
+  "version": 2,
   "builds": [
     {
       "src": "dj_project/wsgi.py",

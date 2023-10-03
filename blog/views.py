@@ -41,7 +41,7 @@ def BlogViewSet(request):
     
 # Displaying data
 def home(request):
-    res_blog = requests.get('http://127.0.0.1:8000/api-blog/').json()
+    res_blog = requests.get('https://django-project-two.vercel.app/api-blog/').json()
     res_blog.reverse()
     # we are creating a Paginator object paginator which will paginate the res_blog queryset in chunks of 5 items per page.
     paginator = Paginator(res_blog, 5)
@@ -63,7 +63,7 @@ def home(request):
 
 
 def user_blogs(request, username):
-    res_blog = requests.get('http://127.0.0.1:8000/api-blog/').json()
+    res_blog = requests.get('https://django-project-two.vercel.app/api-blog/').json()
     filtered_blogs = [blog for blog in res_blog if blog['author'].strip().lower() == username.strip().lower()]
     filtered_blogs.reverse()
 

@@ -16,7 +16,7 @@
                   <saml class="mr-2">Author : {{ data.author }}</saml>
                   <small class="text-muted">Date : {{ data.date_blog }}</small>
               </div>
-              <h2><a class="article-title" href="http://127.0.0.1:8000/blog/{{ data.id }}">Blog Title : {{ data.title }}</a></h2>
+              <h2><a class="article-title" href="{% url 'blog-details' data.id %}">Blog Title : {{ data.title }}</a></h2>
               <p class="article-content">Description : {{ data.des }}</p>
               <p>All tags :
                 {% for tag in data.tags %}
